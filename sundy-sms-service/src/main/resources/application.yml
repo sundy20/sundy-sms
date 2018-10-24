@@ -1,0 +1,92 @@
+server:
+  port: 8081
+
+sms:
+  alidayu:
+    product: Dysmsapi
+    domain: dysmsapi.aliyuncs.com
+    appKey:
+    appSecret:
+    sign: 公司名称
+  getui:
+    appId:
+    masterSecret:
+    appKey:
+    appSecret:
+
+spring:
+  application:
+    name: sundy-sms-service
+  mail:
+    host: smtp.exmail.qq.com
+    username: service@qq.com
+    password: xxxxx
+    defaultEncoding: UTF-8
+    port: 465
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.fallback: false
+      mail.smtp.socketFactory.port: 465
+      mail.smtp.ssl.enable: true　　
+  data:
+    mongodb:
+      uri: mongodb://root:root@localhost:27017/sundy_sms
+
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/sundy_sms?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+
+      #Druid 数据源配置，继承spring.datasource.* 配置，相同则覆盖
+      initial-size: 5
+      max-active: 30
+      min-idle: 5
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+
+      # 自定义StatFilter配置
+      filter:
+        stat:
+          enabled: true
+        wall:
+          enabled: true
+          config:
+            multi-statement-allow: true
+  aop:
+    auto: true
+    proxy-target-class: true
+
+dubbo:
+  application:
+    name: sundy-sms-service
+    logger: slf4j
+    qosEnable: false
+  protocol:
+    name: dubbo
+    port: 20881
+    status: server
+    server: netty4
+  registry:
+    protocol: zookeeper
+    address: localhost:2181
+    file: /tmp/cache/sundy-sms-service.cache
+
+logging:
+  level:
+    ROOT: error
+    org.springframework: info
+    com.gjmetal: info
+
+management:
+  security:
+    enabled: false

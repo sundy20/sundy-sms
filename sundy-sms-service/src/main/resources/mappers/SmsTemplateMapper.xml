@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.gjmetal.sms.dao.SmsTemplateDao">
+
+    <resultMap type="com.gjmetal.sms.domain.SmsTemplate" id="resultMapOfSmsTemplate">
+        <result column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="template_no" property="templateNo"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="send_from" property="sendFrom"/>
+        <result column="create_at" property="createAt"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_at" property="updateAt"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="deleted" property="deleted"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <sql id="FieldsOfSmsTemplate">id, type, template_no, title, content, send_from, create_at, create_by, update_at, update_by, deleted, remark</sql>
+
+    <sql id="FieldsOfSmsTemplateWithoutId">type, template_no, title, content, send_from, create_at, create_by, update_at, update_by, deleted, remark</sql>
+
+    <select id="findById" resultMap="resultMapOfSmsTemplate" parameterType="java.lang.Long">
+        select
+        <include refid="FieldsOfSmsTemplate"/>
+        from sms_template where id = #{id}
+    </select>
+
+    <select id="findByIds" resultMap="resultMapOfSmsTemplate" parameterType="java.util.List">
+        select
+        <include refid="FieldsOfSmsTemplate"/>
+        from sms_template where id in
+        <foreach item="item" index="index" collection="list" open="(" separator=", " close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findByExample" resultMap="resultMapOfSmsTemplate" parameterType="com.gjmetal.sms.domain.SmsTemplate">
+        select
+        <include refid="FieldsOfSmsTemplate"/>
+        from sms_template
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="templateNo != null">and template_no = #{templateNo}</if>
+            <if test="title != null">and title = #{title}</if>
+            <if test="content != null">and content = #{content}</if>
+            <if test="sendFrom != null">and send_from = #{sendFrom}</if>
+            <if test="createAt != null">and create_at = #{createAt}</if>
+            <if test="createBy != null">and create_by = #{createBy}</if>
+            <if test="updateAt != null">and update_at = #{updateAt}</if>
+            <if test="updateBy != null">and update_by = #{updateBy}</if>
+            <if test="deleted != null">and deleted = #{deleted}</if>
+            <if test="remark != null">and remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="com.gjmetal.sms.domain.SmsTemplate">
+        select count(id) from sms_template
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="templateNo != null">and template_no = #{templateNo}</if>
+            <if test="title != null">and title = #{title}</if>
+            <if test="content != null">and content = #{content}</if>
+            <if test="sendFrom != null">and send_from = #{sendFrom}</if>
+            <if test="createAt != null">and create_at = #{createAt}</if>
+            <if test="createBy != null">and create_by = #{createBy}</if>
+            <if test="updateAt != null">and update_at = #{updateAt}</if>
+            <if test="updateBy != null">and update_by = #{updateBy}</if>
+            <if test="deleted != null">and deleted = #{deleted}</if>
+            <if test="remark != null">and remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="findByParams" resultMap="resultMapOfSmsTemplate" parameterType="java.util.Map">
+        select
+        <include refid="FieldsOfSmsTemplate"/>
+        from sms_template
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="templateNo != null">and template_no = #{templateNo}</if>
+            <if test="title != null">and title = #{title}</if>
+            <if test="content != null">and content = #{content}</if>
+            <if test="sendFrom != null">and send_from = #{sendFrom}</if>
+            <if test="createAt != null">and date_format(create_at, '%Y-%m-%d') = #{createAt}</if>
+            <if test="createBy != null">and create_by = #{createBy}</if>
+            <if test="updateAt != null">and date_format(update_at, '%Y-%m-%d') = #{updateAt}</if>
+            <if test="updateBy != null">and update_by = #{updateBy}</if>
+            <if test="deleted != null">and deleted = #{deleted}</if>
+            <if test="remark != null">and remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="countByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(id) from sms_template
+        <where>
+            <if test="id != null">and id = #{id}</if>
+            <if test="type != null">and type = #{type}</if>
+            <if test="templateNo != null">and template_no = #{templateNo}</if>
+            <if test="title != null">and title = #{title}</if>
+            <if test="content != null">and content = #{content}</if>
+            <if test="sendFrom != null">and send_from = #{sendFrom}</if>
+            <if test="createAt != null">and date_format(create_at, '%Y-%m-%d') = #{createAt}</if>
+            <if test="createBy != null">and create_by = #{createBy}</if>
+            <if test="updateAt != null">and date_format(update_at, '%Y-%m-%d') = #{updateAt}</if>
+            <if test="updateBy != null">and update_by = #{updateBy}</if>
+            <if test="deleted != null">and deleted = #{deleted}</if>
+            <if test="remark != null">and remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="resultMapOfSmsTemplate">
+        select
+        <include refid="FieldsOfSmsTemplate"/>
+        from sms_template
+    </select>
+
+    <insert id="save" parameterType="com.gjmetal.sms.domain.SmsTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into sms_template(
+        <include refid="FieldsOfSmsTemplateWithoutId"/>
+        ) values (
+        #{type}, #{templateNo}, #{title}, #{content}, #{sendFrom}, #{createAt}, #{createBy}, #{updateAt}, #{updateBy},
+        #{deleted}, #{remark} )
+    </insert>
+
+    <update id="update" parameterType="com.gjmetal.sms.domain.SmsTemplate" useGeneratedKeys="true" keyProperty="id">
+        update sms_template
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="templateNo != null">template_no = #{templateNo},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="sendFrom != null">send_from = #{sendFrom},</if>
+            <if test="createAt != null">create_at = #{createAt},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateAt != null">update_at = #{updateAt},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+    	delete from sms_template where id = #{id}
+  	</delete>
+
+    <insert id="saveOrUpdate" parameterType="com.gjmetal.sms.domain.SmsTemplate">
+        insert into sms_template (
+        <include refid="FieldsOfSmsTemplateWithoutId"/>
+        ) values (
+        #{type}, #{templateNo}, #{title}, #{content}, #{sendFrom}, #{createAt}, #{createBy}, #{updateAt}, #{updateBy},
+        #{deleted}, #{remark} )
+        on duplicate key update
+        type=#{type}, template_no=#{templateNo}, title=#{title}, content=#{content}, send_from=#{sendFrom},
+        create_at=#{createAt}, create_by=#{createBy}, update_at=#{updateAt}, update_by=#{updateBy}, deleted=#{deleted},
+        remark=#{remark}
+    </insert>
+
+    <insert id="batchSave" parameterType="java.util.List">
+        insert into sms_template(<include refid="FieldsOfSmsTemplateWithoutId"/>) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.type}, #{item.templateNo}, #{item.title}, #{item.content}, #{item.sendFrom}, #{item.createAt},
+            #{item.createBy}, #{item.updateAt}, #{item.updateBy}, #{item.deleted}, #{item.remark})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update sms_template
+            <set>
+                type=#{item.type}, template_no=#{item.templateNo}, title=#{item.title}, content=#{item.content},
+                send_from=#{item.sendFrom}, create_at=#{item.createAt}, create_by=#{item.createBy},
+                update_at=#{item.updateAt}, update_by=#{item.updateBy}, deleted=#{item.deleted}, remark=#{item.remark}
+            </set>
+            where id = #{item.id}
+        </foreach>
+
+    </update>
+
+    <delete id="batchDelete" parameterType="java.util.List">
+        delete from sms_template where id in
+        <foreach item="item" index="index" collection="list" open="(" separator=", " close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
